@@ -2,6 +2,7 @@ const express = require('express');
 const Axios = require('axios');
 const path = require('path');
 const db = require('../database/connection.js');
+const {Client_ID, Authorization} = require('./apikeys.js');
 const app = express();
 const PORT = 3000;
 app.use(express.json());
@@ -17,8 +18,8 @@ app.get('/broadid', (req, res) => {
     },
     headers: {
       'Accept': 'application/vnd.twitchtv.v5+json',
-      'Client-ID': 'e595nbnp8sh2cvbm67n2mzsy82uut6',
-      'Authorization': 'Bearer wsybecd1afbppqmnjvvhh8p225j4w7'
+      'Client-ID': Client_ID,
+      'Authorization': Authorization
     }
   })
   .then(({data}) => {
@@ -39,8 +40,8 @@ app.get('/gameid', (req, res) => {
     },
     headers: {
       'Accept': 'application/vnd.twitchtv.v5+json',
-      'Client-ID': 'e595nbnp8sh2cvbm67n2mzsy82uut6',
-      'Authorization': 'Bearer wsybecd1afbppqmnjvvhh8p225j4w7'
+      'Client-ID': Client_ID,
+      'Authorization': Authorization
     }
   })
   .then(({data}) => {
@@ -63,8 +64,8 @@ app.get('/clipid', (req, res) => {
     },
     headers: {
       'Accept': 'application/vnd.twitchtv.v5+json',
-      'Client-ID': 'e595nbnp8sh2cvbm67n2mzsy82uut6',
-      'Authorization': 'Bearer wsybecd1afbppqmnjvvhh8p225j4w7'
+      'Client-ID': Client_ID,
+      'Authorization': Authorization
     }
   })
   .then(({data}) => {
@@ -142,7 +143,7 @@ app.post('/addclip', (req, res) => {
 })
 
 app.get('/getclips', (req, res) => {
-  db.getClips(req.body.criteria)
+  db.getClips(req.query.sort)
   .then((clips) => {
     res.send(clips);
   })

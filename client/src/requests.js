@@ -39,8 +39,8 @@ export async function getClip (id) {
   return clip = await Axios.get('/getclip', {params: {id}})
 }
 
-export async function getClips () {
-  return await Axios.get('/getclips')
+export async function getClips (sort) {
+  return await Axios.get('/getclips', {params: {sort}})
 }
 
 export async function userClips(name) {

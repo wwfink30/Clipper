@@ -51,7 +51,6 @@ async function login(name) {
 async function usersClips(name) {
   await mongoose.connect('mongodb://localhost:27017/clipper');
   const User = mongoose.model('User', userSchema);
-  console.log(name)
   return await User.findOne({name}, 'clips').exec();
 }
 
@@ -79,10 +78,12 @@ async function getClip(id) {
   return clip = await Clip.findOne({ id });
 }
 
-async function getClips(criteria) {
+async function getClips(sort) {
   await mongoose.connect('mongodb://localhost:27017/clipper');
   const Clip = mongoose.model('Clip',  clipSchema);
-  return clips = await Clip.find().sort({likes: 'desc'});
+  let temp = {};
+  temp[sort] = 'desc';
+  return clips = await Clip.find().sort(temp);
 }
 
 async function likeClip(id, name) {
